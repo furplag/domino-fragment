@@ -1,0 +1,15 @@
+branches:
+  only:
+    - master
+
+language: java
+
+jdk:
+  - oraclejdk13
+  - openjdk13
+
+before_install:
+  - mvn license:format --quiet -B
+
+after_success:
+  - mvn clean test jacoco:report coveralls:report
