@@ -1,6 +1,6 @@
 <!--
 
-    Copyright (C) 2018+ furplag (https://github.com/furplag)
+    Copyright (C) 2019+ furplag (https://github.com/furplag)
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -36,7 +36,11 @@
   </licenses>
   <organization />
   <developers>
-    <developer />
+    <developer>
+      <id>${developer.name}</id>
+      <name>${developer.name}</name>
+      <url>${developer.url}</url>
+    </developer>
   </developers>
   <scm>
     <url>${project.url}</url>
@@ -64,6 +68,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <doma.version>2.25.1</doma.version>
     <tomcat.version>9.0.27</tomcat.version>
+    <m2e.apt.activation>jdt_apt</m2e.apt.activation>
   </properties>
 
   <repositories>
