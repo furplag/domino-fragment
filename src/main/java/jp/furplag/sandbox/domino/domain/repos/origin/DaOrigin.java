@@ -66,8 +66,8 @@ public interface DaOrigin<T extends Origin> {
    * @param excludeFields field name (s) which excludes from condition
    * @return entities which matches conditions
    */
-  default List<T> finder(T entity, String... excludeFields) {
-    return Trebuchet.Functions.orElse(entity, (_entity) -> _entity.select(SelectBuilder.newInstance(config()), excludeFields).getEntityResultList(getType()), () -> all());
+  default List<T> finder(final T entity, String... excludeFields) {
+    return Trebuchet.Functions.orElse(entity, (_entity) -> _entity.select(SelectBuilder.newInstance(config()), excludeFields).getEntityResultList(getType()), (t, ex) -> {ex.printStackTrace(); return all();});
   }
 
   /**
@@ -99,7 +99,7 @@ public interface DaOrigin<T extends Origin> {
   default T ident(T entity) {
     entity.inspector().getFields(Inspector.Predicates::isIdentity, false).forEach((pk) -> entity.where(Where.of(Var.varOf(entity, pk), Where.Operator.Equal)));
 
-    return Trebuchet.Functions.orNot(entity, (_entity) -> _entity.select(SelectBuilder.newInstance(config()), _entity.inspector().getFields(Inspector.Predicates::isIdentity, false).stream().map((pk) -> _entity.inspector().getName(pk)).toArray(String[]::new)).streamEntity(getType()).findFirst().orElse(null));
+    return Trebuchet.Functions.orNot(entity, (_entity) -> _entity.select(SelectBuilder.newInstance(config()), _entity.inspector().getFields(Inspector.Predicates::isIdentity, false).stream().map((pk) -> _entity.inspector().getName(pk)).toArray(String[]::new)).getEntitySingleResult(getType()));
   }
 
   /**
@@ -110,6 +110,6 @@ public interface DaOrigin<T extends Origin> {
    * @return entity which matches conditions
    */
   default T oneOf(T entity, String... excludeFields) {
-    return Trebuchet.Functions.orNot(entity, (_entity) -> _entity.select(SelectBuilder.newInstance(config()), excludeFields).streamEntity(getType()).findFirst().orElse(null));
+    return Trebuchet.Functions.orNot(entity, (_entity) -> _entity.select(SelectBuilder.newInstance(config()), excludeFields).getEntitySingleResult(getType()));
   }
 }
