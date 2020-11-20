@@ -140,7 +140,7 @@ public abstract class When implements Comparable<When>, Jsonizable<When>, Serial
   private final Long millis;
 
   /** the moment . */
-  @Getter(lazy = true, value = AccessLevel.PROTECTED)
+  @Getter(lazy = true)
   @JsonIgnore
   @Transient
   private final LocalDateTime moment = ofEpochMilli();
