@@ -126,7 +126,11 @@
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
+<<<<<<< HEAD
       <version>2.1.210</version>
+=======
+      <version>2.0.206</version>
+>>>>>>> branch 'master' of https://github.com/furplag/domino-fragment
       <scope>test</scope>
     </dependency>
 
